@@ -1,4 +1,4 @@
-import descargaImagen as di
+import administrador_archivos as di
 import calculoFacial as cf
 
 pathOrlando = ["imagen_0001.jpg", "imagen_0002.jpg",

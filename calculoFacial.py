@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
-import descargaImagen as di
+import administrador_archivos as di
+import os
 
 mp_face_mesh = mp.solutions.face_mesh
 
@@ -60,6 +61,7 @@ def getRelaciones(img):
                         tangxz = z / x
                     # Guarda las relaciones en una lista
                         lista_relaciones.append(tangxy + tangxz)
+
             # Retorna la suma de las relaciones
             sumalist = sum(lista_relaciones)
 
@@ -78,6 +80,7 @@ def getPromedios_local(pathPaths, pathOrlando, pathMarce, pathAlex):
             # obtiene las relaciones de cada imagen
             resultados_temp.append(getRelaciones(img))
         # obtiene el promedio de las relaciones de cada path
+
         if path == pathOrlando:
             # guarda el promedio y el nombre de la persona
             # numero sumas de relaciones entre las fotos ingresadas
@@ -89,6 +92,7 @@ def getPromedios_local(pathPaths, pathOrlando, pathMarce, pathAlex):
         elif path == pathAlex:
             promedios.append(
                 [sum(resultados_temp) / len(resultados_temp), "Alex"])
+
         # limpia la lista temporal
         resultados_temp = []
     # retorna la lista de promedios
@@ -117,19 +121,32 @@ def encontrar(promedios, pathPruebas):
                 error_actual = error
                 # guarda la posicion
                 pos = pathPruebas.index(img)
+
         # imprime el resultado al finalizar el recorrido
         print("La imagen", img, "se identifica a",
               promedios[pos][1], "con un error de", error_actual, "%")
 
 
-def registrar_usuario(db, url, nombre_descarga):
-    try:
-        # definimos la url del host donde estarán las imagenes
-        url_primera_parte = ""
-        # agregamos
-        url_total = url_primera_parte + url
-        di.descargaImagen(url_total, nombre_descarga)
-    except:
-        print("Error al registrar usuario")
-    finally:
-        print("Usuario registrado")
+def getRelacionesURL(url, nombre_descarga):
+    # definimos la url del host donde estarán las imagenes
+    url_primera_parte = ""
+    # agregamos
+    # por ejemplo la url solo es el nombre de la persona juan.jpg
+    # entonces la url completa es http://localhost:5000/juan.jpg
+    url_total = url_primera_parte + url
+    # verificamos que el nombre de la descarga este en el path correcto
+    # si no esta lo agregamos
+    if nombre_descarga.__contains__("img/"):
+        # descargamos la imagen
+        di.descargar_imagen(url_total, nombre_descarga)
+    else:
+        # descargamos la imagen
+        di.descargar_imagen(url_total, "img/" + nombre_descarga)
+        nombre_descarga = "img/" + nombre_descarga
+
+    # obtenemos las relaciones de la imagen
+    relaciones = getRelaciones(nombre_descarga)
+    # eliminarmos la imagen
+    di.eliminarArchivo(nombre_descarga)
+    # retornamos el nombre de la imagen
+    return relaciones
