@@ -1,6 +1,6 @@
 import cv2
 import mediapipe as mp
-import administrador_archivos as di
+import administrador_archivos as aa
 import os
 
 mp_face_mesh = mp.solutions.face_mesh
@@ -138,15 +138,41 @@ def getRelacionesURL(url, nombre_descarga):
     # si no esta lo agregamos
     if nombre_descarga.__contains__("img/"):
         # descargamos la imagen
-        di.descargar_imagen(url_total, nombre_descarga)
+        aa.descargar_imagen(url_total, nombre_descarga)
     else:
         # descargamos la imagen
-        di.descargar_imagen(url_total, "img/" + nombre_descarga)
+        aa.descargar_imagen(url_total, "img/" + nombre_descarga)
         nombre_descarga = "img/" + nombre_descarga
 
     # obtenemos las relaciones de la imagen
     relaciones = getRelaciones(nombre_descarga)
     # eliminarmos la imagen
-    di.eliminarArchivo(nombre_descarga)
+    aa.eliminarArchivo(nombre_descarga)
+    # retornamos el nombre de la imagen
+    return relaciones
+
+
+def getRelacionesURLprueba(url, nombre_descarga):
+    # agregamos
+    # por ejemplo la url solo es el nombre de la persona juan.jpg
+    # entonces la url completa es http://localhost:5000/juan.jpg
+    url_total = url
+    # verificamos que el nombre de la descarga este en el path correcto
+    # si no esta lo agregamos
+    if nombre_descarga.__contains__("img/"):
+        # descargamos la imagen
+        #aa.descargar_imagen(url_total, nombre_descarga)
+        pass
+    else:
+        # descargamos la imagen
+        #aa.descargar_imagen(url_total, "img/" + nombre_descarga)
+        nombre_descarga = "img/" + nombre_descarga
+
+    # obtenemos las relaciones de la imagen
+    relaciones = getRelaciones(nombre_descarga)
+    # imprimo solo para dar un visual de lo que usamos
+    print(nombre_descarga)
+    # eliminarmos la imagen
+    # aa.eliminarArchivo(nombre_descarga)
     # retornamos el nombre de la imagen
     return relaciones
