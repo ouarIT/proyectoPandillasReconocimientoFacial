@@ -1,15 +1,16 @@
 import administrador_archivos as di
 import calculoFacial as cf
 
-pathOrlando = ["imagen_0001.jpg", "imagen_0002.jpg",
-               "imagen_0003.jpg", "imagen_0004.jpg"]
+pathOrlando = ["img/image01.jpg", "img/image02.jpg",
+               "img/image03.jpg", "img/image04.jpg"]
 
-pathMarce = ["imagen_0005.jpg", "imagen_0006.jpg",
-             "imagen_0007.jpg", "imagen_0008.jpg"]
+pathMarce = ["img/imagen_0005.jpg", "img/imagen_0006.jpg",
+             "img/imagen_0007.jpg", "img/imagen_0008.jpg"]
 
-pathAlex = ["imagen_0009.jpg", "imagen_0010.jpg",
-            "imagen_0011.jpg", "imagen_0012.jpg", "imagen_0013.jpg", "imagen_0014.jpg", "imagen_0015.jpg"]
-pathPruebas = ["imagen_0016.jpg", "imagen_0017.jpg", "imagen_0018.jpg"]
+pathAlex = ["img/imagen_0009.jpg", "img/imagen_0010.jpg",
+            "img/imagen_0011.jpg", "img/imagen_0012.jpg", "img/imagen_0013.jpg", "img/imagen_0014.jpg", "img/imagen_0015.jpg"]
+pathPruebas = ["img/imagen_0016.jpg",
+               "img/imagen_0017.jpg", "img/imagen_0018.jpg"]
 pathPaths = [pathOrlando, pathMarce, pathAlex]
 
 cf.encontrar(cf.getPromedios_local(

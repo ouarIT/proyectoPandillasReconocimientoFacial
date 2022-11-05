@@ -1,13 +1,16 @@
 # pip install MySQL
 import MySQLdb
-from calculoFacial import getRelacionesURLprueba
+from calculoFacial import getRelacionesURLprueba, getRelaciones
 
 
 host = "localhost"
 user = "root"
 port = "3306"
 passwd = "1234"
-dbName = "datos"
+dbName = "datosrf"
+tablaIntegrantes = "integrantes"
+tablaDatos = "datos_rf"
+tablaValores = "valores"
 
 
 def conectarDB():
@@ -26,7 +29,7 @@ def conectarDB():
 
 
 def obtenerNoAnalizados(cur):
-    cur.execute("SELECT * FROM datosrf WHERE estado = 0")
+    cur.execute("SELECT * FROM "+tablaDatos+" WHERE estado = 0")
     return cur.fetchall()
 
 
@@ -60,7 +63,7 @@ def analizarNuevasFotos(cur):
 
 def modificarEstado(cur, tuplaID):
     # inicializamos la modificacion
-    cadena = "UPDATE datosrf SET estado = 1 where id = "
+    cadena = "UPDATE "+tablaDatos+" SET estado = 1 where id = "
     # recorremos la lista
     for dato in tuplaID:
         # obtenemos el id y agregamos
@@ -100,7 +103,7 @@ def promediarRelaciones(tuplaAnalisis):
 
 def verificarRepetido(cur, dictID_Promedios):
     # inicializamos la cadena
-    cadena = "SELECT * FROM valores WHERE id_integrante = "
+    cadena = "SELECT * FROM "+tablaValores+" WHERE id_integrante = "
     # recorremos la tupla
     for id in dictID_Promedios.keys():
         # obtenemos el id
@@ -145,7 +148,7 @@ def redefinirValores(dictID_Promedios, dictID_Promedios_BD):
 def insertarValores(cur, dictID_Promedios):
     # inicializamos la cadena
     # necesita un update
-    cadena = "INSERT INTO valores (id_integrante, valor) VALUES "
+    cadena = "INSERT INTO "+tablaValores+" (id_integrante, valor) VALUES "
     # recorremos la tupla
     for id in dictID_Promedios.keys():
         # obtenemos el id
@@ -162,7 +165,7 @@ def insertarValores(cur, dictID_Promedios):
 
 def updateValores(cur, dictUpdate):
     # inicializamos la cadena
-    cadena = "UPDATE valores SET valor = "
+    cadena = "UPDATE"+tablaValores+" SET valor = "
     # recorremos la tupla
     for id in dictUpdate.keys():
         # obtenemos el id
@@ -175,6 +178,15 @@ def updateValores(cur, dictUpdate):
 
 # Este analisis es desde la base de datos de pandilleros, donde se conoce
 # los datos y el id_del_integrante
+
+
+def getTablaValores(cur):
+    cadena = "select * from " + tablaValores
+    cur.execute(cadena)
+    cur.connection.commit()
+    resultados = cur.fetchall()
+    cur.close()
+    return resultados
 
 
 def analizarBasesdeDatos():
@@ -192,8 +204,7 @@ def analizarBasesdeDatos():
     # si no hay valores para analizar, acabamos
     if (len(tuplaAnalisis) == 0):
         print("sin valores para analizar")
-        cur.close()
-        return
+        return getTablaValores(cur)
 
     # obtenemos el promedio de las relaciones
     dictID_Promedios = promediarRelaciones(tuplaAnalisis)
@@ -215,5 +226,48 @@ def analizarBasesdeDatos():
         insertarValores(cur, dictID_Promedios)
         # pass
     modificarEstado(cur, tuplaID)
+
+    return getTablaValores(cur)
+
+
+def buscarImagen(valores, url):
+    valorImg = getRelaciones(url)
+    print(valorImg)
+    # variable para el error
+    error = 101
+    # error por cada recorrido
+    error_actual = 101
+    # posicion en la lista de imagenes
+    pos = -1
+    # calcula el error
+
+    for valor in valores:
+        error = abs(valorImg - float(valor[1]))/valorImg * 100
+        # si el error es menor al error actual
+        if error < error_actual:
+            # guarda el error actual
+            error_actual = error
+            # guarda la posicion
+            pos = valor[0]
+    cur = conectarDB()
+    cadena = "select * from " + tablaIntegrantes + \
+        " where id_integrante = " + str(pos)
+    cur.execute(cadena)
+    cur.connection.commit()
+    resultados = cur.fetchall()
+    # cerramos db
     cur.close()
-    return
+    print(resultados)
+
+
+valores = analizarBasesdeDatos()
+print(valores)
+url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/buscar/h1.jpg"
+
+buscarImagen(valores, url)
+url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/buscar/h3.jpg"
+
+buscarImagen(valores, url)
+url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/buscar/h2.jpg"
+
+buscarImagen(valores, url)
