@@ -1,9 +1,11 @@
-# proyectoPandillasReconocimientoFacial
-Este es la parte de desarrollo del proyecto de reconocimiento facial de Ingenieria de Software
+[![Python Version](https://img.shields.io/badge/python-3.8-hotpink.svg)](https://python.org)
 
-1. Install Requests: python -m pip show requests 
-2. Install Os: pip install os
-3. Install CV2: pip install opencv-python
-4. Install Mediapipe: pip install mediapipe
-5. Install MySQLdb: pip install MySQL
-6. Install fpdf: python -m pip install fpdf
+To run the project:
+1. Clone the repository
+```bash
+git clone https://github.com/ouarIT/proyectoPandillasReconocimientoFacial.git
+```
+2. Install the requirements
+```bash
+pip install -r requirements.txt
+```
