@@ -262,12 +262,12 @@ def buscarImagen(valores, url):
 
 valores = analizarBasesdeDatos()
 print(valores)
-url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/buscar/h1.jpg"
+url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img16.jpg"
 
 buscarImagen(valores, url)
-url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/buscar/h3.jpg"
+url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img17.jpg"
 
 buscarImagen(valores, url)
-url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/buscar/h2.jpg"
+url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img18.jpg"
 
 buscarImagen(valores, url)

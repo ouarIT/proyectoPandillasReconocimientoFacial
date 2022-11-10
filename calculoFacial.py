@@ -53,7 +53,7 @@ def getRelaciones(img):
                             lista_coordenadas[COOR_NARIZ][1])
                     z = abs(lista_coordenadas[i][2] -
                             lista_coordenadas[COOR_NARIZ][2])
-                    # Si puede calcular la tangente de lo controrario guarda y o z
+                    # Si puede calcular la tangente
                     if x == 0:
                         pass
                     else:
