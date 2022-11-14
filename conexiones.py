@@ -1,7 +1,7 @@
 # pip install MySQL
 import MySQLdb
 from calculoFacial import getRelacionesURLprueba, getRelaciones
-
+from generador_pdf import gen_pdf
 
 host = "localhost"
 user = "root"
@@ -11,6 +11,7 @@ dbName = "datosrf"
 tablaIntegrantes = "integrantes"
 tablaDatos = "datos_rf"
 tablaValores = "valores"
+tablaValoresSP = "valoresSP"
 
 
 def conectarDB():
@@ -147,7 +148,6 @@ def redefinirValores(dictID_Promedios, dictID_Promedios_BD):
 
 def insertarValores(cur, dictID_Promedios):
     # inicializamos la cadena
-    # necesita un update
     cadena = "INSERT INTO "+tablaValores+" (id_integrante, valor) VALUES "
     # recorremos la tupla
     for id in dictID_Promedios.keys():
@@ -232,7 +232,6 @@ def analizarBasesdeDatos():
 
 def buscarImagen(valores, url):
     valorImg = getRelaciones(url)
-    print(valorImg)
     # variable para el error
     error = 101
     # error por cada recorrido
@@ -257,17 +256,17 @@ def buscarImagen(valores, url):
     resultados = cur.fetchall()
     # cerramos db
     cur.close()
-    print(resultados)
+    gen_pdf(resultados[0], url)
 
 
-valores = analizarBasesdeDatos()
-print(valores)
-url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img16.jpg"
+if __name__ == "__main__":
+    valores = analizarBasesdeDatos()
 
-buscarImagen(valores, url)
-url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img17.jpg"
+    url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img16.jpg"
+    buscarImagen(valores, url)
 
-buscarImagen(valores, url)
-url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img18.jpg"
+    url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img17.jpg"
+    buscarImagen(valores, url)
 
-buscarImagen(valores, url)
+    url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img18.jpg"
+    buscarImagen(valores, url)

@@ -23,6 +23,7 @@ create table valores(
     valor decimal(10,6),
     foreign key (id_integrante) references integrantes(id_integrante)
     );
+
 insert into integrantes(nombre, a_paterno, a_materno,
 alias, fecha_nacimiento, descripcion, domicilio) values("Orlando", "Aguilar","Rojas","chik","17-06-2000","estudiante","direccion"),
 ("Marcela", "Zimbrón","Trejo","anazt","17-03-2001","estudiante de ti","su casita2"),("arturo", "alejandro","castro","el alto","16-04-2001","estudiante","casa blanca");
