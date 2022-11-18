@@ -1,5 +1,6 @@
-# pip install MySQL
+
 import MySQLdb
+import VerificaPath as verificar
 from calculoFacial import getRelacionesURLprueba, getRelaciones
 from generador_pdf import gen_pdf
 
@@ -31,6 +32,7 @@ def conectarDB():
 
 def obtenerNoAnalizados(cur):
     cur.execute("SELECT * FROM "+tablaDatos+" WHERE estado = 0")
+
     return cur.fetchall()
 
 
@@ -47,17 +49,22 @@ def analizarNuevasFotos(cur):
         # image[2] nos da el nombre de la foto
         # image[3] nos da el estado de la foto
         nombre = str(image[2])
-        # obtenemos las relaciones de la imagen
-        relaciones = getRelacionesURLprueba("", nombre)
-        # obtenemos el id
-        id_dato = image[0]
+        if verificar.existe(nombre) :
+            # obtenemos las relaciones de la imagen
+            relaciones = getRelacionesURLprueba("", nombre)
+            # obtenemos el id
+            id_dato = image[0]
 
-        # obtenemos el id de la persona
-        id_integrante = image[1]
+            # obtenemos el id de la persona
+            id_integrante = image[1]
 
-        # guardamos en la lista
-        listaID.append(id_dato)
-        listaAnalisis.append((id_integrante, relaciones))
+            # guardamos en la lista
+            listaID.append(id_dato)
+            listaAnalisis.append((id_integrante, relaciones))
+
+        else :
+            continue
+
 
     return (tuple(listaID), tuple(listaAnalisis))
 
@@ -138,7 +145,7 @@ def redefinirValores(dictID_Promedios, dictID_Promedios_BD):
         # obtenemos el valor de la base de datos
         valorBD = dictID_Promedios_BD[id]
         # obtenemos el promedio
-        promedio = (valor + valorBD)/2
+        promedio = (valor + float(valorBD))/2
         # agregamos el id y el promedio
         ductUpdate[id] = promedio
         dictID_Promedios.pop(id)
@@ -165,7 +172,7 @@ def insertarValores(cur, dictID_Promedios):
 
 def updateValores(cur, dictUpdate):
     # inicializamos la cadena
-    cadena = "UPDATE"+tablaValores+" SET valor = "
+    cadena = "UPDATE "+tablaValores+" SET valor = "
     # recorremos la tupla
     for id in dictUpdate.keys():
         # obtenemos el id
@@ -231,6 +238,7 @@ def analizarBasesdeDatos():
 
 
 def buscarImagen(valores, url):
+
     valorImg = getRelaciones(url)
     # variable para el error
     error = 101
@@ -262,11 +270,11 @@ def buscarImagen(valores, url):
 if __name__ == "__main__":
     valores = analizarBasesdeDatos()
 
-    url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img16.jpg"
+    url = "E:/proyectoPandillasReconocimientoFacial/img/img16.jpg"
     buscarImagen(valores, url)
 
-    url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img17.jpg"
+    url = "E:/proyectoPandillasReconocimientoFacial/img/img17.jpg"
     buscarImagen(valores, url)
 
-    url = "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img18.jpg"
+    url = "E:/proyectoPandillasReconocimientoFacial/img/img18.jpg"
     buscarImagen(valores, url)

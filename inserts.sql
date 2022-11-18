@@ -28,11 +28,11 @@ insert into integrantes(nombre, a_paterno, a_materno,
 alias, fecha_nacimiento, descripcion, domicilio) values("Orlando", "Aguilar","Rojas","chik","17-06-2000","estudiante","direccion"),
 ("Marcela", "Zimbrón","Trejo","anazt","17-03-2001","estudiante de ti","su casita2"),("arturo", "alejandro","castro","el alto","16-04-2001","estudiante","casa blanca");
 
-insert into datos_rf(id_integrante, nombre_archivo) values (1, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img01.jpg"),
-(1, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img02.jpg"),(1, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img03.jpg"),
-(1, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img04.jpg"),(2, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img05.jpg"),
-(2, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img06.jpg"),(2, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img07.jpg"),
-(2, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img08.jpg"),(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img09.jpg"),
-(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img10.jpg"),(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img11.jpg"),
-(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img12.jpg"),(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img13.jpg"),
-(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img14.jpg"),(3, "C:/Users/Orlando/Desktop/git/NuevoProyecto/img/img15.jpg");
+insert into datos_rf(id_integrante, nombre_archivo) values (1, "E:/proyectoPandillasReconocimientoFacial/img/img01.jpg"),
+(1, "E:/proyectoPandillasReconocimientoFacial/img/img02.jpg"),(1, "E:/proyectoPandillasReconocimientoFacial/img03.jpg"),
+(1, "E:/proyectoPandillasReconocimientoFacial/img/img04.jpg"),(2, "E:/proyectoPandillasReconocimientoFacial/img/img05.jpg"),
+(2, "E:/proyectoPandillasReconocimientoFacial/img/img06.jpg"),(2, "E:/proyectoPandillasReconocimientoFacial/img/img07.jpg"),
+(2, "E:/proyectoPandillasReconocimientoFacial/img/img08.jpg"),(3, "E:/proyectoPandillasReconocimientoFacial/img/img09.jpg"),
+(3, "E:/proyectoPandillasReconocimientoFacial/img/img10.jpg"),(3, "E:/proyectoPandillasReconocimientoFacial/img/img11.jpg"),
+(3, "E:/proyectoPandillasReconocimientoFacial/img/img12.jpg"),(3, "E:/proyectoPandillasReconocimientoFacial/img/img13.jpg"),
+(3, "E:/proyectoPandillasReconocimientoFacial/img/img14.jpg"),(3, "E:/proyectoPandillasReconocimientoFacial/img/img15.jpg");
