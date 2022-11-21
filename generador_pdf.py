@@ -1,13 +1,21 @@
-# python -m pip install fpdf
-
 from fpdf import FPDF
 from datetime import datetime
+import os
+
+
+def existe_dir():
+    # verificamos si existe la carpeta
+    if not os.path.exists("pdf"):
+        os.makedirs("pdf")
 
 
 def gen_pdf(resultados, url):
     x = 50
     y = 10
     now = datetime.now()
+
+    existe_dir()
+
     # definimos el tamaño y las unidades de medicion
     pdf = FPDF(orientation='P', unit='mm', format='Letter')
     # agregamos una pagina

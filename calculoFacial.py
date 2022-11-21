@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 import administrador_archivos as aa
-import os
 
 mp_face_mesh = mp.solutions.face_mesh
 
@@ -127,28 +126,11 @@ def encontrar(promedios, pathPruebas):
               promedios[pos][1], "con un error de", error_actual, "%")
 
 
-def getRelacionesURL(url, nombre_descarga):
-    # definimos la url del host donde estarán las imagenes
-    url_primera_parte = ""
-    # agregamos
-    # por ejemplo la url solo es el nombre de la persona juan.jpg
-    # entonces la url completa es http://localhost:5000/juan.jpg
-    url_total = url_primera_parte + url
-    # verificamos que el nombre de la descarga este en el path correcto
-    # si no esta lo agregamos
-    if nombre_descarga.__contains__("img/"):
-        # descargamos la imagen
-        aa.descargar_imagen(url_total, nombre_descarga)
-    else:
-        # descargamos la imagen
-        aa.descargar_imagen(url_total, "img/" + nombre_descarga)
-        nombre_descarga = "img/" + nombre_descarga
-
+def getRelacionesURL(nombre_archivo):
     # obtenemos las relaciones de la imagen
-    relaciones = getRelaciones(nombre_descarga)
-    # eliminarmos la imagen
-    aa.eliminarArchivo(nombre_descarga)
-    # retornamos el nombre de la imagen
+    relaciones = getRelaciones(nombre_archivo)
+
+    # retornamos la lista
     return relaciones
 
 

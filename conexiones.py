@@ -1,7 +1,7 @@
 
 import MySQLdb
-import VerificaPath as verificar
-from calculoFacial import getRelacionesURLprueba, getRelaciones
+import administrador_archivos as admin
+from calculoFacial import getRelacionesURL, getRelaciones
 from generador_pdf import gen_pdf
 
 host = "localhost"
@@ -39,32 +39,57 @@ def obtenerNoAnalizados(cur):
 def analizarNuevasFotos(cur):
     # obtenemos la tabla de los datos no analizados
     tablaNoAnalizados = obtenerNoAnalizados(cur)
+
     # aqui se guardaran los resultados
     listaID = []
     listaAnalisis = []
+    error = []
+    error_pagina = []
+
+    valor_temp = 0
 
     for image in tablaNoAnalizados:
+        nombre = "temp" + str(valor_temp)
         # image[0] nos da el id de la foto
         # image[1] nos da el id_integrante
         # image[2] nos da el nombre de la foto
         # image[3] nos da el estado de la foto
-        nombre = str(image[2])
-        if verificar.existe(nombre) :
-            # obtenemos las relaciones de la imagen
-            relaciones = getRelacionesURLprueba("", nombre)
-            # obtenemos el id
-            id_dato = image[0]
+        url = str(image[2])
 
-            # obtenemos el id de la persona
-            id_integrante = image[1]
-
-            # guardamos en la lista
-            listaID.append(id_dato)
-            listaAnalisis.append((id_integrante, relaciones))
-
-        else :
+        if not admin.verificar_pagina(url):
+            error_pagina.append(url)
             continue
 
+        # descargamos la imagen
+        url = admin.descargar_imagen(url, nombre)
+
+        # verificamos que se haya descargado la imagen
+        if not admin.existe(url):
+            error.append(url)
+            continue
+
+        # obtenemos las relaciones de la imagen
+        relaciones = getRelacionesURL(url)
+
+        # eliminarmos la imagen
+        admin.eliminarArchivo(url)
+
+        # obtenemos el id del dato
+        id_dato = image[0]
+
+        # obtenemos el id de la persona
+        id_integrante = image[1]
+
+        # guardamos en la lista
+        listaID.append(id_dato)
+        listaAnalisis.append((id_integrante, relaciones))
+
+        valor_temp += 1
+
+    if len(error) != 0:
+        print("Error al descargar las siguientes imagenes:")
+        for e in error:
+            print(e)
 
     return (tuple(listaID), tuple(listaAnalisis))
 
@@ -203,20 +228,23 @@ def analizarBasesdeDatos():
     # Analizamos las fotos nuevas que han sido agregadas
     # a la base de datos
     tuplaTotal = analizarNuevasFotos(cur)
+
     # obtenemos la tupla de los id (id de la foto) de las no analizadas
     tuplaID = tuplaTotal[0]
+
     # obtenemos el id de los integrantes y su valor
     tuplaAnalisis = tuplaTotal[1]
 
     # si no hay valores para analizar, acabamos
     if (len(tuplaAnalisis) == 0):
-        print("sin valores para analizar")
         return getTablaValores(cur)
 
     # obtenemos el promedio de las relaciones
     dictID_Promedios = promediarRelaciones(tuplaAnalisis)
+
     # obtenemos los valores de la base de datos
     dictID_Promedios_BD = verificarRepetido(cur, dictID_Promedios)
+
     # si en la base de datos hay valores, estos se tendran que redefinir
     # promediando una vez mas
     if (len(dictID_Promedios_BD) != 0):
@@ -224,14 +252,16 @@ def analizarBasesdeDatos():
             dictID_Promedios, dictID_Promedios_BD)
         dictID_Promedios = dictUpdate[1]
         dictUpdate = dictUpdate[0]
+
         # falta hace update
         if (len(dictID_Promedios) != 0):
             insertarValores(cur, dictID_Promedios)
         updateValores(cur, dictUpdate)
-        # si no hay valores anteriores a la base de datos, agregamos
+
+    # si no hay valores anteriores a la base de datos, agregamos
     else:
         insertarValores(cur, dictID_Promedios)
-        # pass
+
     modificarEstado(cur, tuplaID)
 
     return getTablaValores(cur)
@@ -239,7 +269,19 @@ def analizarBasesdeDatos():
 
 def buscarImagen(valores, url):
 
+    if not admin.verificar_pagina(url):
+        print("No se pudo conectar a la pagina")
+        return
+
+    nombre = "temp"
+
+    url = admin.descargar_imagen(url, nombre)
+
+    if not admin.existe(url):
+        return
+
     valorImg = getRelaciones(url)
+
     # variable para el error
     error = 101
     # error por cada recorrido
@@ -256,25 +298,31 @@ def buscarImagen(valores, url):
             error_actual = error
             # guarda la posicion
             pos = valor[0]
+
     cur = conectarDB()
     cadena = "select * from " + tablaIntegrantes + \
         " where id_integrante = " + str(pos)
+
     cur.execute(cadena)
     cur.connection.commit()
     resultados = cur.fetchall()
+
     # cerramos db
     cur.close()
+
     gen_pdf(resultados[0], url)
+
+    admin.eliminarArchivo(url)
 
 
 if __name__ == "__main__":
     valores = analizarBasesdeDatos()
 
-    url = "E:/proyectoPandillasReconocimientoFacial/img/img16.jpg"
+    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
     buscarImagen(valores, url)
 
-    url = "E:/proyectoPandillasReconocimientoFacial/img/img17.jpg"
+    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
     buscarImagen(valores, url)
 
-    url = "E:/proyectoPandillasReconocimientoFacial/img/img18.jpg"
+    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
     buscarImagen(valores, url)
