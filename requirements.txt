@@ -1,4 +1,5 @@
 opencv-python
 mediapipe
 MySQL
-fdpf
+fpdf
+requests

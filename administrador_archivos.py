@@ -39,15 +39,10 @@ def eliminarArchivo(url):
 def existe(path):
     isFile = os.path.isfile(path)
     if isFile:
-        #print ('el '+ path +'archivo existe')
         return True
     else:
-        print('el ' + path + '  no existe')
         return False
 
 
-if __name__ == "__main__":
-    if verificar_pagina("https://raw.githubusercontent.com/ouarIT/img/main/img02.jpga"):
-        print("si existe")
-    else:
-        print("no existe")
+def obtener_nombre_archivos(path):
+    return tuple(os.listdir(path))

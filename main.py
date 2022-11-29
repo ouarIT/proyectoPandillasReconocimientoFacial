@@ -1,17 +1,13 @@
-import administrador_archivos as di
-import calculoFacial as cf
+from conexiones import *
 
-pathOrlando = ["img/image01.jpg", "img/image02.jpg",
-               "img/image03.jpg", "img/image04.jpg"]
+if __name__ == "__main__":
+    valores = analizarBasesdeDatos()
 
-pathMarce = ["img/imagen_0005.jpg", "img/imagen_0006.jpg",
-             "img/imagen_0007.jpg", "img/imagen_0008.jpg"]
+    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
+    buscarImagen(valores, url)
 
-pathAlex = ["img/imagen_0009.jpg", "img/imagen_0010.jpg",
-            "img/imagen_0011.jpg", "img/imagen_0012.jpg", "img/imagen_0013.jpg", "img/imagen_0014.jpg", "img/imagen_0015.jpg"]
-pathPruebas = ["img/imagen_0016.jpg",
-               "img/imagen_0017.jpg", "img/imagen_0018.jpg"]
-pathPaths = [pathOrlando, pathMarce, pathAlex]
+    url = "https://raw.githubusercontent.com/ouarIT/img/main/img17.jpg"
+    buscarImagen(valores, url)
 
-cf.encontrar(cf.getPromedios_local(
-    pathPaths, pathOrlando, pathMarce, pathAlex), pathPruebas)
+    url = "https://raw.githubusercontent.com/ouarIT/img/main/img18.jpg"
+    buscarImagen(valores, url)

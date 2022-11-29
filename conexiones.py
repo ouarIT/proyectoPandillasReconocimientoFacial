@@ -310,19 +310,6 @@ def buscarImagen(valores, url):
     # cerramos db
     cur.close()
 
-    gen_pdf(resultados[0], url)
+    gen_pdf(resultados[0], url, error)
 
     admin.eliminarArchivo(url)
-
-
-if __name__ == "__main__":
-    valores = analizarBasesdeDatos()
-
-    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
-    buscarImagen(valores, url)
-
-    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
-    buscarImagen(valores, url)
-
-    url = "https://raw.githubusercontent.com/ouarIT/img/main/img16.jpg"
-    buscarImagen(valores, url)
