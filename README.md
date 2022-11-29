@@ -1,4 +1,4 @@
-[![Python Version](https://img.shields.io/badge/python-3.8-hotpink.svg)](https://python.org)
+[![Python Version](https://img.shields.io/badge/python-3.10-hotpink.svg)](https://python.org)
 
 To run the project:
 1. Clone the repository
