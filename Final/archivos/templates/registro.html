@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href= "{% static 'assets/bootstrap/css/c-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Features-Large-Icons-icons.css' %}">
+    <style>
+        .inputGroup {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 1em 0 1em 0;
+            max-width: 100%;
+            position: relative;
+            }
+
+            .inputGroup input {
+            font-size: 100%;
+            padding: 0.8em;
+            outline: none;
+            border: 2px solid rgb(200, 200, 200);
+            background-color: transparent;
+            border-radius: 20px;
+            width: 100%;
+            }
+
+            .inputGroup label {
+            font-size: 100%;
+            position: absolute;
+            left: 0;
+            padding: 0.8em;
+            margin-left: 0.5em;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            color: rgb(100, 100, 100);
+            }
+
+            .inputGroup :is(input:focus, input:valid)~label {
+            transform: translateY(-50%) scale(.9);
+            margin: 0em;
+            margin-left: 1.3em;
+            padding: 0.4em;
+            background-color: #e8e8e8;
+            }
+
+            .inputGroup :is(input:focus, input:valid) {
+            border-color: rgb(150, 150, 200);
+            }
+            button {
+            padding: 1.3em 3em;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            color: #000;
+            background-color: #fff;
+            border: none;
+            border-radius: 45px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+            }
+
+            button:hover {
+            background-color: #23c483;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #fff;
+            transform: translateY(-7px);
+            }
+
+            button:active {
+            transform: translateY(-1px);
+            }
+    </style>
+    <title>
+        Archivos
+    </title>
+</head>
+
+<body>
+    {% include "header.html" %}
+    <div class="container py-4 py-xl-5">
+        <div class="row">
+            <div class="col-md-8 col-xl-6 mx-auto p-4">
+                <h1>Crear registro</h1>
+                <div class="d-flex align-items-center align-items-md-start align-items-xl-center"></div>
+                <form action="http://localhost:8000/buscar/" method="get">
+                    <div class="inputGroup">
+                        <input type="text" required="True" autocomplete="off" name = 'link'>
+                        <label>Ingresa el link</label><br/>
+                    </div>
+                    <button type="submit"> Enviar 
+                    </button>
+                </form>
+                <div class="d-flex align-items-center align-items-md-start align-items-xl-center"></div>
+                <div class="d-flex align-items-center align-items-md-start align-items-xl-center"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/bootstrap/js/c-bootstrap.min.js' %}"></script>
+</body>
+
+</html>

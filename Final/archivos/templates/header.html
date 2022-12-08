@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>
+        header
+
+    </title>
+    <link type = 'text/css' rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link type = 'text/css' rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <link type = 'text/css' rel="stylesheet" href="{% static 'assets/css/Navbar-Right-Links-icons.css' %}">
+</head>
+    <body>
+        <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="http://localhost:8000/miembros/">
+                    <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
+                        <i class="far fa-hand-spock"></i>
+                    </span>
+                    <span>ouarIT</span>
+                </a>
+                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5">
+                    <span class="visually-hidden">
+                        Toggle navigation
+                    </span>
+                    <span class="navbar-toggler-icon">
+
+                    </span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-5">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost:8000/archivos/">
+                            Archivos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost:8000/miembros/">
+                                miembros
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary ms-md-2" role="button" href="http://localhost:8000/registro/">
+                        Nuevo Registro
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}">
+
+        </script>
+    </body>
+</html>
